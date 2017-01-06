@@ -1,5 +1,5 @@
 # VaadinBlog
-Blogging app using Vaadin
+Bloging app using Vaadin
 
 Still pretty barebones 
 
