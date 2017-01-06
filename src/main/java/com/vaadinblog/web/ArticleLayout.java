@@ -29,7 +29,7 @@ public class ArticleLayout extends VerticalLayout {
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
         VerticalLayout commentLayout=new VerticalLayout();
-        comments.forEach(comment->{commentLayout.addComponent(new Label(comment.toString()));});
+        comments.forEach(comment->{commentLayout.addComponent(new Label(comment.getContent()));});
         addComponent(commentLayout);
 
         VerticalLayout commentForm= new VerticalLayout();

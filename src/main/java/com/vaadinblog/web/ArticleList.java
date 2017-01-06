@@ -1,7 +1,5 @@
 package com.vaadinblog.web;
 
-import java.awt.Panel;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
