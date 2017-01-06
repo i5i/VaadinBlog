@@ -36,7 +36,6 @@ public class BlogService {
     }    
     
     public List<Comment> getCommentsByArticleId(long id) {
-        List<Comment> list=commentRepo.findByArticleid(id);
-        return list;
-    }
+        return commentRepo.findByArticle(id);    
+        }
 }

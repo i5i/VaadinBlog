@@ -7,5 +7,5 @@ import com.vaadinblog.domain.Comment;
 
 @Transactional
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-public List<Comment> findByArticleid(long id);
+    public List<Comment> findByArticle(long id);
 }

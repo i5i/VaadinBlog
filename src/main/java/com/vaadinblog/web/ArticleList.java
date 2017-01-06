@@ -18,17 +18,17 @@ public class ArticleList extends VerticalLayout {
 
     public void getArticles() {
         service.getArticles().forEach(article ->{
-            addComponent(new ArticleLayout(article));
+            addComponent(new ArticleLayout(article, service));
             }
         );     
     }
     
     public void addArticle(Article article) {
         try{
-        service.createArticle(article);
-        addComponent(new ArticleLayout( article ));
+            service.createArticle(article);
+            addComponent(new ArticleLayout( article, service ));
         }catch(ConstraintViolationException e){
-        System.err.println(e);
+            System.err.println(e);
         }
     }
 }

@@ -14,7 +14,8 @@ public class Comment {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     private long id;
-    private long articleid;
+    
+    private long article;
     private Timestamp timestamp;
     private String content;
     
@@ -36,11 +37,11 @@ public class Comment {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
-    public long getArticleid() {
-        return articleid;
+    public long getArticle() {
+        return article;
     }
-    public void setArticleid(long articleid) {
-        this.articleid = articleid;
+    public void setArticle(long articleid) {
+        this.article = articleid;
     }
     
 }
