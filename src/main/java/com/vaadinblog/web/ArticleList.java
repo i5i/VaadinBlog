@@ -1,6 +1,6 @@
 package com.vaadinblog.web;
 
-import java.sql.SQLException;
+import java.awt.Panel;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,22 @@ public class ArticleList extends VerticalLayout {
     BlogService service;
 
     public void getArticles() {
-        service.getArticles().forEach(article ->{addComponent(new ArticleLayout(article));});     
+        service.getArticles().forEach(article ->{
+            addComponent(getPost(article));
+            }
+        );     
     }
 
     public void addArticle(Article article) {
         try{
         service.createArticle(article);
-        addComponent(new ArticleLayout(article));
+        addComponent(getPost(article));
         }catch(ConstraintViolationException e){
         System.err.println(e);
         }
     }
     
-    
+    private ArticleLayout getPost(Article article){
+        return new ArticleLayout(article, service.getCommentsByArticleId(article.getId()));
+        }
 }
