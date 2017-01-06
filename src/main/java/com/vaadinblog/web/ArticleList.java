@@ -6,17 +6,19 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadinblog.domain.Article;
 import com.vaadinblog.service.BlogService;
 @Component
+@UIScope
 public class ArticleList extends VerticalLayout {
     @Autowired
     BlogService service;
 
     public void getArticles() {
         service.getArticles().forEach(article ->{
-            addComponent(getPost(article));
+            addComponent(new ArticleLayout(article));
             }
         );     
     }
@@ -24,13 +26,9 @@ public class ArticleList extends VerticalLayout {
     public void addArticle(Article article) {
         try{
         service.createArticle(article);
-        addComponent(getPost(article));
+        addComponent(new ArticleLayout( article ));
         }catch(ConstraintViolationException e){
         System.err.println(e);
         }
     }
-    
-    private ArticleLayout getPost(Article article){
-        return new ArticleLayout(article, service.getCommentsByArticleId(article.getId()));
-        }
 }

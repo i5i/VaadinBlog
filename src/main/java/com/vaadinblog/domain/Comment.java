@@ -15,8 +15,6 @@ public class Comment {
     @GeneratedValue( strategy = GenerationType.AUTO )
     private long id;
     private long articleid;
-    @NotEmpty
-    private String title;
     private Timestamp timestamp;
     private String content;
     
@@ -31,12 +29,6 @@ public class Comment {
     }
     public void setId(long id) {
         this.id = id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
     }
     public Timestamp getTimestamp() {
         return timestamp;
