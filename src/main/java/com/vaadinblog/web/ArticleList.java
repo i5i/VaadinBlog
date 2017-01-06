@@ -22,7 +22,6 @@ public class ArticleList extends VerticalLayout {
             }
         );     
     }
-
     public void addArticle(Article article) {
         try{
         service.createArticle(article);

@@ -31,7 +31,6 @@ public class ArticleLayout extends VerticalLayout {
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         //setCommentSection(service.getCommentsByArticleId(article.getId()));
     }
-    
     private void setCommentSection(List<Comment> comments){
         VerticalLayout commentLayout=new VerticalLayout();
         TextArea commentText= new TextArea();
