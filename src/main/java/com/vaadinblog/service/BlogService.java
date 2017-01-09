@@ -35,7 +35,9 @@ public class BlogService {
     public void createComment(Comment com){
         commentRepo.save(com);
     }
-
+    public void removeComment(Comment comment) {
+        commentRepo.delete(comment);        
+    }
     public List<Article> getArticles() {
         List<Article> list=new ArrayList<Article>();
         Iterator<Article> iterator=articleRepo.findAll().iterator();
@@ -48,4 +50,5 @@ public class BlogService {
     public List<Comment> getCommentsByArticleId(long id) {
         return commentRepo.findByArticle(id);    
     }
+
 }
