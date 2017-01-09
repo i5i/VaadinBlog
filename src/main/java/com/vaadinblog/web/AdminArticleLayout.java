@@ -7,6 +7,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
@@ -16,6 +17,8 @@ import com.vaadinblog.domain.Comment;
 import com.vaadinblog.service.BlogService;
 
 public class AdminArticleLayout extends ArticleLayout {
+    private HorizontalLayout buttonLayout;
+    
     public AdminArticleLayout(Article article, BlogService service) {
         super(article, service);
     }
@@ -26,12 +29,14 @@ public class AdminArticleLayout extends ArticleLayout {
         Label content= new Label(article.getContent());
         post.setContent(content);
         addComponent(post);
+        buttonLayout=new HorizontalLayout();
         Button deleteBtn=new Button("Delete");
-        addComponent(deleteBtn);
+        buttonLayout.addComponent(deleteBtn);
         deleteBtn.addClickListener(ae->{deleteArticle(article);});
         Button editBtn=new Button("Edit");
-        addComponent(editBtn);
-        editBtn.addClickListener(ae->{editArticle(content, article); removeComponent(editBtn);}); 
+        buttonLayout.addComponent(editBtn);
+        editBtn.addClickListener(ae->{editArticle(content, article); buttonLayout.removeComponent(editBtn);});
+        addComponent(buttonLayout);
     }
     
     @Override
@@ -62,7 +67,7 @@ public class AdminArticleLayout extends ArticleLayout {
         try{
             service.createComment(madeComment);
             VerticalLayout commentLayout=new VerticalLayout();
-            Label commentTitle=new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString());
+            Label commentTitle=new Label("Comment by Admin at "+ madeComment.getTimestamp().toString());
             Label commentContent=new Label(madeComment.getContent());
             Button commentDeleter=new Button("Delete Comment");
             commentDeleter.addClickListener(ae->{deleteComment(madeComment);});
@@ -100,12 +105,12 @@ public class AdminArticleLayout extends ArticleLayout {
             article.setContent(editField.getValue());
             service.createArticle(article);
             content.setValue(editField.getValue());
-            removeComponent(saveBtn);
+            buttonLayout.removeComponent(saveBtn);
             removeComponent(editField);
             Button editBtn=new Button("Edit");
-            addComponent(editBtn, 4);
-            editBtn.addClickListener(ae->{editArticle(content, article); removeComponent(editBtn);}); 
+            buttonLayout.addComponent(editBtn);
+            editBtn.addClickListener(ae->{editArticle(content, article); buttonLayout.removeComponent(editBtn);}); 
         });
-        addComponent(saveBtn,4);
+        buttonLayout.addComponent(saveBtn);
     }
 }
