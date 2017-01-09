@@ -51,6 +51,7 @@ public class ArticleLayout extends VerticalLayout {
     protected void setComments() {
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
         commentSection=new VerticalLayout();
+        commentSection.setSpacing(true);
         comments.forEach(comment->{
             commentSection.addComponents(
                     new Label("Comment by Anonymous at "+ comment.getTimestamp().toString()), 

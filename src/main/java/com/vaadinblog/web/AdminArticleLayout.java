@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -37,6 +38,7 @@ public class AdminArticleLayout extends ArticleLayout {
     protected void setComments() {
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
         commentSection=new VerticalLayout();
+        commentSection.setSpacing(true);
         comments.forEach(comment->{
             VerticalLayout commentLayout=new VerticalLayout();
             Label commentTitle=new Label("Comment by Anonymous at "+ comment.getTimestamp().toString());
