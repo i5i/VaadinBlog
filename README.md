@@ -1,5 +1,5 @@
 # VaadinBlog
-Blogging app using Vaadin, looks okay 
+Blogging app using Vaadin, looks nice  
 
 admin login
 
