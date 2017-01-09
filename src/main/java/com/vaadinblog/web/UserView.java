@@ -30,6 +30,7 @@ public class UserView extends VerticalLayout implements View {
    
    public UserView(BlogService service){
        this.service=service;
+       setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
    }
    
    public void enter(ViewChangeListener.ViewChangeEvent event) {
@@ -39,12 +40,14 @@ public class UserView extends VerticalLayout implements View {
         if (authentication != null && authentication.isAuthenticated()){
             String name = authentication.getName();
             Label labelLogin = new Label("Username: " + name);
+            labelLogin.setSizeUndefined();
             addComponent(labelLogin);
             Collection<? extends GrantedAuthority> authorities  = authentication.getAuthorities();
             for (GrantedAuthority ga : authorities){
                 String authority = ga.getAuthority();
                 if ("ADMIN".equals(authority)){
                     Label lblAuthority = new Label("You are the administrator. ");
+                    lblAuthority.setSizeUndefined();
                     addComponent(lblAuthority);
                     addForm();
                 }
@@ -56,6 +59,7 @@ public class UserView extends VerticalLayout implements View {
             ui.addMenuButton(logout);
         }else{
             Label notLoggedIn = new Label("Not logged in");
+            notLoggedIn.setSizeUndefined();
             addComponent(notLoggedIn);
         }
         addArticleList();
