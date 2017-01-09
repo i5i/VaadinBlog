@@ -6,10 +6,9 @@ import java.util.List;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.TextField;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadinblog.domain.Article;
 import com.vaadinblog.domain.Comment;
@@ -89,9 +88,10 @@ public class AdminArticleLayout extends ArticleLayout {
     }
     
     private void editArticle(Label content, Article article) {
-        TextField editField= new TextField();
+        TextArea editField= new TextArea();
         editField.setCaption("edit post");
         editField.setValue(article.getContent());
+        editField.setSizeUndefined();
         addComponent(editField, 3);
         Button saveBtn=new Button("Save");
         saveBtn.addClickListener(saving->{ 
