@@ -38,6 +38,7 @@ public class BlogService {
     public void removeComment(Comment comment) {
         commentRepo.delete(comment);        
     }
+    
     public List<Article> getArticles() {
         List<Article> list=new ArrayList<Article>();
         Iterator<Article> iterator=articleRepo.findAll().iterator();
