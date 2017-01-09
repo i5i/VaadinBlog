@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.vaadin.navigator.Navigator;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Notification;
@@ -23,6 +24,7 @@ public class LoginForm extends VerticalLayout {
     
     public LoginForm(AuthenticationManager authManager) {
           this.manager=authManager;
+          setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
           addComponent(txtLogin);
           addComponent(txtPassword);
           addComponent(btnLogin);

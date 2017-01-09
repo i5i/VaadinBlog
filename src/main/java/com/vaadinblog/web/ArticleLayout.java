@@ -45,7 +45,11 @@ public class ArticleLayout extends VerticalLayout {
     private void setComments(Article article, BlogService service) {
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
         VerticalLayout commentLayout=new VerticalLayout();
-        comments.forEach(comment->{commentLayout.addComponent(new Label(comment.getContent()));});
+        comments.forEach(comment->{
+            commentLayout.addComponents(
+                    new Label("Comment by Anonymous at "+ comment.getTimestamp().toString()), 
+                    new Label(comment.getContent()));
+            });
         addComponent(commentLayout);
 
         VerticalLayout commentForm= new VerticalLayout();
@@ -64,7 +68,9 @@ public class ArticleLayout extends VerticalLayout {
             madeComment.setContent(commentText.getValue());
             try{
                 service.createComment(madeComment);
-                commentLayout.addComponents(new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString()),new Label(madeComment.getContent()));
+                commentLayout.addComponents(
+                        new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString()),
+                        new Label(madeComment.getContent()));
             }catch(ConstraintViolationException e){
                 System.err.println(e);
             }
