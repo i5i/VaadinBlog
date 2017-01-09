@@ -15,65 +15,75 @@ import com.vaadinblog.domain.Comment;
 import com.vaadinblog.service.BlogService;
 
 public class ArticleLayout extends VerticalLayout {
+    protected final Article article;
+    protected final BlogService service;
+    protected VerticalLayout commentSection;
     
     public ArticleLayout(Article article, BlogService service) {
-        setTitle(article, ValoTheme.LABEL_H2);
-        setTimestamp(article);
-        setSubmitedContent(article);
-        setComments(article, service); 
+        this.article=article;
+        this.service=service;
+        setTitle(ValoTheme.LABEL_H2);
+        setTimestamp();
+        setSubmitedContent();
+        setComments(); 
+        setCommentForm();
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
     }
     
-    private void setTitle(Article article, String theme) {
+    protected void setTitle(String theme) {
         Label title=new Label(article.getTitle());
         title.addStyleName(theme);        
         addComponent(title);        
     }
     
-    private void setTimestamp(Article article) {
+    protected void setTimestamp() {
         Label timestamp= new Label(article.getTimestamp().toString());
         addComponent(timestamp);
     }
 
-    private void setSubmitedContent(Article article) {
+    protected void setSubmitedContent() {
         Panel post= new Panel();
         Label content= new Label(article.getContent());
         post.setContent(content);
         addComponent(post);
     }
 
-    private void setComments(Article article, BlogService service) {
+    protected void setComments() {
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
-        VerticalLayout commentLayout=new VerticalLayout();
+        commentSection=new VerticalLayout();
         comments.forEach(comment->{
-            commentLayout.addComponents(
+            commentSection.addComponents(
                     new Label("Comment by Anonymous at "+ comment.getTimestamp().toString()), 
                     new Label(comment.getContent()));
             });
-        addComponent(commentLayout);
-
+        addComponent(commentSection);        
+        }
+    
+    protected void setCommentForm(){
         VerticalLayout commentForm= new VerticalLayout();
         TextArea commentText= new TextArea();
         commentText.setCaption("add comment");
         commentText.setWidth("60%");
         Button submitComment= new Button("submit");
         commentForm.addComponents(commentText, submitComment);
+        submitComment.addClickListener(ae->{submitComment(commentText.getValue());});
         addComponent(commentForm);
-        
-        submitComment.addClickListener(ae->{
-            Timestamp commentTimestamp=new Timestamp(System.currentTimeMillis());
-            Comment madeComment= new Comment();
-            madeComment.setTimestamp(commentTimestamp);            
-            madeComment.setArticle(article.getId());
-            madeComment.setContent(commentText.getValue());
-            try{
-                service.createComment(madeComment);
-                commentLayout.addComponents(
-                        new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString()),
-                        new Label(madeComment.getContent()));
-            }catch(ConstraintViolationException e){
-                System.err.println(e);
-            }
-         });        
+          
     }
-}
+    protected void submitComment(String content) {
+        Timestamp commentTimestamp=new Timestamp(System.currentTimeMillis());
+        Comment madeComment= new Comment();
+        madeComment.setTimestamp(commentTimestamp);            
+        madeComment.setArticle(article.getId());
+        madeComment.setContent(content);
+        try{
+            service.createComment(madeComment);
+            commentSection.addComponents(
+                    new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString()),
+                    new Label(madeComment.getContent()));
+        }catch(ConstraintViolationException e){
+            System.err.println(e);
+        }
+     };      
+    }
+

@@ -19,10 +19,21 @@ public class BlogService {
     CommentRepository commentRepo;
     
     public void createArticle(Article article){
-    articleRepo.save(article);
+        articleRepo.save(article);
     }
+    public void removeArticle(Article article){
+        try{
+        articleRepo.delete(article);
+        commentRepo.findByArticle(article.getId()).forEach(comment->{
+            commentRepo.delete(comment);
+        });;
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
     public void createComment(Comment com){
-    commentRepo.save(com);
+        commentRepo.save(com);
     }
 
     public List<Article> getArticles() {
@@ -36,5 +47,5 @@ public class BlogService {
     
     public List<Comment> getCommentsByArticleId(long id) {
         return commentRepo.findByArticle(id);    
-        }
+    }
 }

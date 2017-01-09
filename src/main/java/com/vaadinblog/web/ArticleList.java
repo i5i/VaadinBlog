@@ -21,9 +21,16 @@ public class ArticleList extends VerticalLayout {
     public void addArticle(Article article, BlogService service) {
         try{
             service.createArticle(article);
-            addComponent(new ArticleLayout( article, service ), 0);
+            addComponent(new AdminArticleLayout( article, service ), 0);
         }catch(ConstraintViolationException e){
             System.err.println(e);
         }
+    }
+
+    public void getAdminArticles(BlogService service) {
+        service.getArticles().forEach(article ->{
+            addComponent(new AdminArticleLayout(article, service), 0);
+            }
+        );
     }
 }

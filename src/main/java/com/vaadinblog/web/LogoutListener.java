@@ -11,7 +11,7 @@ public class LogoutListener implements Button.ClickListener {
     public void buttonClick(Button.ClickEvent clickEvent) {
           BlogUI ui=(BlogUI) UI.getCurrent();
           ui.removeMenuButton(clickEvent.getButton());
-          ui.addMenuButton(new Button("Login",new ButtonListener("login")));
+          ui.addMenuButton(new Button("Login",new MenuButtonListener("login")));
           SecurityContextHolder.clearContext();
           Navigator navigator = UI.getCurrent().getNavigator();
           navigator.navigateTo("/login");

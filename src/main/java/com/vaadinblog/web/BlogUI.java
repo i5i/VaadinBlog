@@ -61,8 +61,8 @@ public class BlogUI extends UI{
     private void addMenu(){
         menuLayout=new HorizontalLayout();
         menuLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
-        menuLayout.addComponent(new Button("Blog", new ButtonListener("")));
-        menuLayout.addComponent(new Button("Login", new ButtonListener("login")));
+        menuLayout.addComponent(new Button("Blog", new MenuButtonListener("")));
+        menuLayout.addComponent(new Button("Login", new MenuButtonListener("login")));
         rootLayout.addComponent(menuLayout);
         rootLayout.setComponentAlignment(menuLayout, Alignment.MIDDLE_CENTER);
     }

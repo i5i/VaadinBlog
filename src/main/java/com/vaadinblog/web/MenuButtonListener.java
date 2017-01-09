@@ -5,9 +5,9 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.UI;
 
-class ButtonListener implements Button.ClickListener {
+class MenuButtonListener implements Button.ClickListener {
     String menuitem;
-    public ButtonListener(String menuitem) {
+    public MenuButtonListener(String menuitem) {
         this.menuitem = menuitem;
     }
     @Override

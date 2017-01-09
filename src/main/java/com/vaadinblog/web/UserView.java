@@ -50,6 +50,7 @@ public class UserView extends VerticalLayout implements View {
                     lblAuthority.setSizeUndefined();
                     addComponent(lblAuthority);
                     addForm();
+                    addAdminList();
                 }
             }
             Button logout = new Button("Logout");
@@ -61,8 +62,8 @@ public class UserView extends VerticalLayout implements View {
             Label notLoggedIn = new Label("Not logged in");
             notLoggedIn.setSizeUndefined();
             addComponent(notLoggedIn);
+            addArticleList();
         }
-        addArticleList();
     }
     
     private void addForm() {
@@ -87,6 +88,14 @@ public class UserView extends VerticalLayout implements View {
         articleList.setWidth("80%");
         articleList.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         articleList.getArticles(service);
+        addComponent(articleList);
+    }
+    
+    private void addAdminList() {
+        articleList=new ArticleList();
+        articleList.setWidth("80%");
+        articleList.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        articleList.getAdminArticles(service);
         addComponent(articleList);
     }
 
