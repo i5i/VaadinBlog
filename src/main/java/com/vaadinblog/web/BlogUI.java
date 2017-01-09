@@ -21,7 +21,7 @@ public class BlogUI extends UI{
     private VerticalLayout rootLayout;
     private Navigator navigator;
     private HorizontalLayout menuLayout;
-    private CssLayout contentLayout;
+    private VerticalLayout contentLayout;
     
     @Autowired
     private BlogService service;
@@ -33,18 +33,20 @@ public class BlogUI extends UI{
         addLayout();
         addHeaders();
         addMenu();
-        contentLayout = new CssLayout();
+        contentLayout = new VerticalLayout();
+        contentLayout.setWidth("80%");
+        contentLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         navigator = new Navigator(this, contentLayout);
         navigator.addView("/login",new LoginView(authManager));
         navigator.addView("",new UserView(service));
         setNavigator(navigator);
         rootLayout.addComponent(contentLayout);
+        rootLayout.setComponentAlignment(contentLayout, Alignment.MIDDLE_CENTER);
         navigator.navigateTo("");
     }
     
     private void addLayout() {
         rootLayout=new VerticalLayout();
-        rootLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         setContent(rootLayout);        
     }
 
@@ -53,13 +55,16 @@ public class BlogUI extends UI{
         header.addStyleName(ValoTheme.LABEL_H1);
         header.setSizeUndefined();
         rootLayout.addComponent(header);
+        rootLayout.setComponentAlignment(header, Alignment.MIDDLE_CENTER);
     }
     
     private void addMenu(){
         menuLayout=new HorizontalLayout();
+        menuLayout.setDefaultComponentAlignment(Alignment.TOP_RIGHT);
         menuLayout.addComponent(new Button("Blog", new ButtonListener("")));
         menuLayout.addComponent(new Button("Login", new ButtonListener("login")));
         rootLayout.addComponent(menuLayout);
+        rootLayout.setComponentAlignment(menuLayout, Alignment.MIDDLE_CENTER);
     }
     void addMenuButton(Button button){
         menuLayout.addComponent(button);

@@ -21,7 +21,6 @@ public class ArticleLayout extends VerticalLayout {
         setTimestamp(article);
         setSubmitedContent(article);
         setComments(article, service); 
-        setWidth("50%");
         setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
     }
     
@@ -52,9 +51,9 @@ public class ArticleLayout extends VerticalLayout {
         VerticalLayout commentForm= new VerticalLayout();
         TextArea commentText= new TextArea();
         commentText.setCaption("add comment");
+        commentText.setWidth("60%");
         Button submitComment= new Button("submit");
-        commentForm.addComponent(commentText);
-        commentForm.addComponent(submitComment);
+        commentForm.addComponents(commentText, submitComment);
         addComponent(commentForm);
         
         submitComment.addClickListener(ae->{
@@ -65,7 +64,7 @@ public class ArticleLayout extends VerticalLayout {
             madeComment.setContent(commentText.getValue());
             try{
                 service.createComment(madeComment);
-                commentLayout.addComponent(new Label(madeComment.getContent()));
+                commentLayout.addComponents(new Label("Comment by Anonymous at "+ madeComment.getTimestamp().toString()),new Label(madeComment.getContent()));
             }catch(ConstraintViolationException e){
                 System.err.println(e);
             }

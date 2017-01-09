@@ -67,8 +67,10 @@ public class UserView extends VerticalLayout implements View {
         TextField titleField=new TextField();
         TextArea contentField=new TextArea();
         titleField.setCaption("title");
+        titleField.setWidth("80%");
         contentField.setSizeUndefined();
         contentField.setHeight("5em");
+        contentField.setWidth("80%");
         contentField.setCaption("article text");
         Button submitButton= new Button("Submit");
         submitButton.addClickListener(ae->{submitArticle(titleField.getValue() ,contentField.getValue());});
