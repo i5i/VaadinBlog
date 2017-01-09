@@ -17,16 +17,33 @@ import com.vaadinblog.service.BlogService;
 public class ArticleLayout extends VerticalLayout {
     
     public ArticleLayout(Article article, BlogService service) {
+        setTitle(article, ValoTheme.LABEL_H2);
+        setTimestamp(article);
+        setSubmitedContent(article);
+        setComments(article, service); 
+        setWidth("50%");
+        setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+    }
+    
+    private void setTitle(Article article, String theme) {
         Label title=new Label(article.getTitle());
+        title.addStyleName(theme);        
+        addComponent(title);        
+    }
+    
+    private void setTimestamp(Article article) {
         Label timestamp= new Label(article.getTimestamp().toString());
+        addComponent(timestamp);
+    }
+
+    private void setSubmitedContent(Article article) {
         Panel post= new Panel();
         Label content= new Label(article.getContent());
         post.setContent(content);
-        title.addStyleName(ValoTheme.LABEL_H2);
-        
-        addComponents(title, timestamp, post);
-        setWidth("50%");
-        setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        addComponent(post);
+    }
+
+    private void setComments(Article article, BlogService service) {
         List <Comment> comments=service.getCommentsByArticleId(article.getId());
         VerticalLayout commentLayout=new VerticalLayout();
         comments.forEach(comment->{commentLayout.addComponent(new Label(comment.getContent()));});
@@ -52,7 +69,6 @@ public class ArticleLayout extends VerticalLayout {
             }catch(ConstraintViolationException e){
                 System.err.println(e);
             }
-         });
+         });        
     }
-
 }

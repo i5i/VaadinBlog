@@ -8,23 +8,20 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadinblog.domain.Article;
 import com.vaadinblog.service.BlogService;
-@Component
-@UIScope
-public class ArticleList extends VerticalLayout {
-    @Autowired
-    BlogService service;
 
-    public void getArticles() {
+public class ArticleList extends VerticalLayout {
+
+    public void getArticles(BlogService service) {
         service.getArticles().forEach(article ->{
-            addComponent(new ArticleLayout(article, service));
+            addComponent(new ArticleLayout(article, service), 0);
             }
         );     
     }
     
-    public void addArticle(Article article) {
+    public void addArticle(Article article, BlogService service) {
         try{
             service.createArticle(article);
-            addComponent(new ArticleLayout( article, service ));
+            addComponent(new ArticleLayout( article, service ), 0);
         }catch(ConstraintViolationException e){
             System.err.println(e);
         }
