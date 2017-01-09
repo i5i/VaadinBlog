@@ -1,6 +1,9 @@
 # VaadinBlog
-Blogging app using Vaadin
+Blogging app using Vaadin, 
+almost functional
 
-Still pretty barebones 
+admin login
 
-todo:a proper login 
+username:username
+
+password:password
