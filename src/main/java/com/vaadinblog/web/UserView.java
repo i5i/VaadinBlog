@@ -71,7 +71,7 @@ public class UserView extends VerticalLayout implements View {
         formLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         TextField titleField=new TextField();
         TextArea contentField=new TextArea();
-        titleField.setCaption("title");
+        titleField.setCaption("title*");
         titleField.setWidth("80%");
         contentField.setSizeUndefined();
         contentField.setHeight("5em");

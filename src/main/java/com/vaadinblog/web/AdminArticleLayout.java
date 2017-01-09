@@ -6,8 +6,10 @@ import java.util.List;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadinblog.domain.Article;
 import com.vaadinblog.domain.Comment;
@@ -26,7 +28,10 @@ public class AdminArticleLayout extends ArticleLayout {
         addComponent(post);
         Button deleteBtn=new Button("Delete");
         addComponent(deleteBtn);
-        deleteBtn.addClickListener(ae->{deleteArticle(article);});       
+        deleteBtn.addClickListener(ae->{deleteArticle(article);});
+        Button editBtn=new Button("Edit");
+        addComponent(editBtn);
+        editBtn.addClickListener(ae->{editArticle(content, article); removeComponent(editBtn);}); 
     }
     
     @Override
@@ -76,9 +81,29 @@ public class AdminArticleLayout extends ArticleLayout {
                 commentSection.removeComponent(component);
             }
          });
-        }
+    }
+    
     private void deleteArticle(Article article) {
         service.removeArticle(article);
         removeAllComponents();
+    }
+    
+    private void editArticle(Label content, Article article) {
+        TextField editField= new TextField();
+        editField.setCaption("edit post");
+        editField.setValue(article.getContent());
+        addComponent(editField, 3);
+        Button saveBtn=new Button("Save");
+        saveBtn.addClickListener(saving->{ 
+            article.setContent(editField.getValue());
+            service.createArticle(article);
+            content.setValue(editField.getValue());
+            removeComponent(saveBtn);
+            removeComponent(editField);
+            Button editBtn=new Button("Edit");
+            addComponent(editBtn, 4);
+            editBtn.addClickListener(ae->{editArticle(content, article); removeComponent(editBtn);}); 
+        });
+        addComponent(saveBtn,4);
     }
 }
